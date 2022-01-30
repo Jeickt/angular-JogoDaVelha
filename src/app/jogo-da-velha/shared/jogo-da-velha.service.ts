@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class JogoDaVelhaService {
   private readonly TAM_TAB: number = 3;
   private readonly X: number = 1;
@@ -148,12 +150,13 @@ export class JogoDaVelhaService {
       for (let i = 0; i < this.TAM_TAB; i++) {
         for (let j = 0; j < this.TAM_TAB; j++) {
           if (this.tabuleiro[i][j] === this.VAZIO) {
-            jogadas.push([i][j]);
+            jogadas.push([i, j]);
           }
         }
       }
-      let k = Math.floor(Math.random() * (jogadas.lenght - 1));
+      let k = Math.floor(Math.random() * (jogadas.length - 1));
       jogada = [jogadas[k][0], jogadas[k][1]];
+      console.log(jogada);
     }
 
     this.tabuleiro[jogada[0]][jogada[1]] = this._jogador;
@@ -198,8 +201,10 @@ export class JogoDaVelhaService {
       return exibirVitoria;
     }
     for (let pos of this.vitoria) {
-      if (pos[0] === posX && pos[1] === posY) exibirVitoria = true;
-      break;
+      if (pos[0] === posX && pos[1] === posY) {
+        exibirVitoria = true;
+        break;
+      }
     }
 
     return exibirVitoria;
